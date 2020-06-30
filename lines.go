@@ -8,15 +8,19 @@ import (
     "image/png"
     "os"
     "fmt"
-    "math/rand"
     "flag"
     "strings"
+        crypto_rand "crypto/rand"
+    "encoding/binary"
+    math_rand "math/rand"
 )
 
 var debug bool = false
 
 func draw(img *image.RGBA, c color.Color, x int, y int, xstep int, ystep int) {
-    leftToRight := rand.Intn(2)
+    leftToRight := math_rand.Intn(2)
+    fmt.Println("x", x)
+    fmt.Println("random num:", leftToRight)
     for i := 0; i < xstep; i++ {
         if leftToRight > 0 {
             img.Set(x+i, y+i, c)
@@ -26,6 +30,15 @@ func draw(img *image.RGBA, c color.Color, x int, y int, xstep int, ystep int) {
     }
 }
 
+// https://stackoverflow.com/questions/12321133/how-to-properly-seed-random-number-generator
+func init() {
+    var b [8]byte
+    _, err := crypto_rand.Read(b[:])
+    if err != nil {
+        panic("cannot seed math/rand package with cryptographically secure random number generator")
+    }
+    math_rand.Seed(int64(binary.LittleEndian.Uint64(b[:])))
+}
 
 func main() {
     var width = flag.Int("width", 200, "width of the image")
@@ -35,6 +48,7 @@ func main() {
     flag.Parse()
     // width := 1080
     // height := 2160
+
 
     upLeft := image.Point{0, 0}
     lowRight := image.Point{*width, *height}
@@ -59,13 +73,13 @@ func main() {
 
     // Encode as PNG.
     fmt.Println("Outputting to file: ", strings.TrimSpace(*outputFile))
-    f, err := os.OpenFile(*outputFile, os.O_RDWR|os.O_CREATE, 0755)
+    f, err := os.OpenFile(*outputFile, os.O_RDWR|os.O_CREATE, 0777)
     if err != nil {
         fmt.Println(err)
     }
     // png.Encode(f, img)
         if err := png.Encode(f, img); err != nil {
-        f.Close()
         fmt.Println(err)
     }
+    f.Close()
 }
