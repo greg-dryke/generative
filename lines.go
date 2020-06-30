@@ -10,6 +10,7 @@ import (
     "fmt"
     "math/rand"
     "flag"
+    "strings"
 )
 
 var debug bool = false
@@ -57,6 +58,14 @@ func main() {
     }
 
     // Encode as PNG.
-    f, _ := os.Create(*outputFile)
-    png.Encode(f, img)
+    fmt.Println("Outputting to file: ", strings.TrimSpace(*outputFile))
+    f, err := os.OpenFile(*outputFile, os.O_RDWR|os.O_CREATE, 0755)
+    if err != nil {
+        fmt.Println(err)
+    }
+    // png.Encode(f, img)
+        if err := png.Encode(f, img); err != nil {
+        f.Close()
+        fmt.Println(err)
+    }
 }
