@@ -9,7 +9,7 @@ on:
 jobs:
 
   build:
-    name: Build
+    name: Create Wallpaper
     runs-on: ubuntu-latest
     steps:
 
@@ -39,7 +39,13 @@ jobs:
 # Add other images/types here
     - name: Commit new image
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add pixel3.png
         git add lines_old
         git commit -m "Generated new wallpapers"
 
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
