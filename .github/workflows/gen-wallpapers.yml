@@ -39,6 +39,9 @@ jobs:
 # Add other images/types here
     - name: Commit new image
       run: |
+        git status
+        ls -l
+        pwd
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add pixel3.png
