@@ -14,4 +14,4 @@ ls -1td lines_old/* | tail -n +10 | xargs rm
 mv pixel3.png lines_old/pixel3_$(date "+%Y-%m-%d_%H%M").png 2>/dev/null
 
 ## not being pushed?? Change here isn't
-./generative -width 1080 -height 2160 -step 25 -output pixel3.png
+./generative -width 1080 -height 2160 -step 40 -output pixel3.png
