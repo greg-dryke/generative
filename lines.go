@@ -68,8 +68,8 @@ func main() {
     */
 
     for x := 0; x < *width; x+=*step {
-        c := colors[math_rand.Intn(3)]
         for y := 0; y < *height; y+=*step {
+            c := colors[math_rand.Intn(3)]
             if debug {
                 fmt.Println("x:", x, "y:", y)
             }
