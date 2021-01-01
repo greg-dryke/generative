@@ -57,17 +57,23 @@ func main() {
 
     // Colors are defined by Red, Green, Blue, Alpha uint8 values.
     cyan := color.RGBA{100, 200, 200, 0xff}
-
+    purple := color.RGBA{200, 200, 100, 0xff}
+    yellow := color.RGBA{200, 100, 200, 0xff}
+    var colors [3]color.Color
+    colors[0] = cyan
+    colors[1] = purple
+    colors[2] = yellow
     /*
          idea from: https://generativeartistry.com/tutorials/tiled-lines/
     */
 
     for x := 0; x < *width; x+=*step {
+        c := colors[math_rand.Intn(3)]
         for y := 0; y < *height; y+=*step {
             if debug {
                 fmt.Println("x:", x, "y:", y)
             }
-            draw(img, cyan, x,y,*step,*step)
+            draw(img, c, x,y,*step,*step)
         }
     }
 
