@@ -14,25 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Set up Go 1.x
+    - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: ^1.13
-      id: go
+        go-version: 1.15
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Get dependencies
-      run: |
-        go get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
-
     - name: Build
-      run: go build -v .
+      run: go build -v ./...
 
     - name: Make wallpaper
       run: ./pixel3.sh
@@ -48,7 +39,6 @@ jobs:
         git add pixel3.png
         git add lines_old
         git commit -m "Generated new wallpapers"
-
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
