@@ -62,13 +62,17 @@ func main() {
     img := image.NewRGBA(image.Rectangle{upLeft, lowRight})
 
     // Colors are defined by Red, Green, Blue, Alpha uint8 values.
-    cyan := color.RGBA{100, 200, 200, 0xff}
-    purple := color.RGBA{200, 200, 100, 0xff}
-    yellow := color.RGBA{200, 100, 200, 0xff}
+    //cyan := color.RGBA{100, 200, 200, 0xff}
+    //purple := color.RGBA{200, 200, 100, 0xff}
+    //yellow := color.RGBA{200, 100, 200, 0xff}
+    // https://twitter.com/colorschemez/status/1406467329827885057
+    lightBlue := color.RGBA{162,207,254, 0xff}
+    brightGreen := color.RGBA{174,255,110, 0xff}
+    midGray := color.RGBA{146,149,145,0xff} 
     var colors [3]color.Color
-    colors[0] = cyan
-    colors[1] = purple
-    colors[2] = yellow
+    colors[0] = lightBlue
+    colors[1] = midGray
+    colors[2] = brightGreen
     /*
          idea from: https://generativeartistry.com/tutorials/tiled-lines/
     */
