@@ -17,15 +17,20 @@ import (
 
 var debug bool = false
 
-func draw(img *image.RGBA, c color.Color, x int, y int, xstep int, ystep int) {
+func draw(img *image.RGBA, c color.Color, x int, y int, xstep int, ystep int, width int) {
     leftToRight := math_rand.Intn(2)
     fmt.Println("x", x)
     fmt.Println("random num:", leftToRight)
+    xVal := 0
     for i := 0; i < xstep; i++ {
         if leftToRight > 0 {
-            img.Set(x+i, y+i, c)
+            xVal = x+i
         } else {
-            img.Set(x+xstep-i, y+i, c)
+            xVal = x+xstep-i
+        }
+        for j := 0; j < width; j++ {
+            img.Set(xVal, y+i+j, c)
+            img.Set(xVal, y+i-j, c)
         }
     }
 }
@@ -44,6 +49,7 @@ func main() {
     var width = flag.Int("width", 200, "width of the image")
     var height = flag.Int("height", 100, "height of the image")
     var step = flag.Int("step", 20, "step for lines")
+    var lineWidth = flag.Int("lwidth", 3, "width for lines")
     var outputFile = flag.String("output", "output.png", "name of the output png")
     flag.Parse()
     // width := 1080
@@ -73,7 +79,7 @@ func main() {
             if debug {
                 fmt.Println("x:", x, "y:", y)
             }
-            draw(img, c, x,y,*step,*step)
+            draw(img, c, x,y,*step,*step, *lineWidth)
         }
     }
 
