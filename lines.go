@@ -79,7 +79,7 @@ func main() {
 
     for x := 0; x < *width; x+=*step {
         for y := 0; y < *height; y+=*step {
-            c := colors[math_rand.Intn(3)]
+            c := colors[math_rand.Intn(100)/45]
             if debug {
                 fmt.Println("x:", x, "y:", y)
             }
