@@ -118,7 +118,7 @@ func main() {
             draw(img, c, x,y,*step,*step, *lineWidth)
         }
     }
-    blank :=  color.RGBA{0, 0, 0, 0x00}
+    blank :=  color.RGBA{0, 0, 0, 0x01}
     for _, zone := range blankZones {
         for x := zone.xStart; x < zone.xEnd; x+= 1 {
             for y := zone.yStart; y < zone.yEnd; y+= 1 {
